@@ -1,0 +1,52 @@
+* {
+    font-family: 'JetBrains Mono';
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    border-style: none;
+}
+
+html {
+    background-color: #333;
+}
+
+.rounded-outline {
+    padding: 10px;
+    border-style: solid;
+    border-color: lime;
+    border-radius: 20px;
+}
+
+.vlist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hlist {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+a {
+    color: #07f;
+}
+
+a:hover {
+    color: #0ff;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+h2>a {
+    color: white;
+    text-decoration: none;
+}
+
+button {
+    padding: 5px;
+    border-radius: 10px;
+}

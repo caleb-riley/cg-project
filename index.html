@@ -4,13 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Linear Programming Visualizer</title>
 </head>
 
-<body>
-    <h1>Linear Programming Visualizer</h1>
+<body style="padding: 10px;">
+    <div class="vlist">
+        <div class="rounded-outline vlist" style="align-items: center;">
+            <h1 style="text-align: center;">Linear Programming Visualizer</h1>
+            <p style="text-align: center;">CSCI 716 - Computational Geometry</p>
+        </div>
 
-    <p>Author: Caleb Riley (<a href="mailto:car1915@rit.edu">car1915@rit.edu</a>)</p>
+        <div id="heading-author" class="rounded-outline vlist">
+            <h2># <a href="#heading-author">Author</a></h2>
+
+            <ul>
+                <li>
+                    <p>Caleb Riley (<a href="mailto:car1915@rit.edu">car1915@rit.edu</a>)</p>
+                </li>
+            </ul>
+        </div>
+
+        <div id="heading-description" class="rounded-outline vlist">
+            <h2># <a href="#heading-description">Description</a></h2>
+        </div>
+
+        <div id="heading-interactive" class="rounded-outline vlist">
+            <h2># <a href="#heading-interactive">Interactive Aid</a></h2>
+
+            <p style="color: yellow;">Work in progress, play with this counter in the meantime (saves!)</p>
+
+            <div class="hlist" style="align-items: center;">
+                <button id="increment-button" style="background-color: lime;">Increment</button>
+                <button id="decrement-button" style="background-color: red;">Decrement</button>
+                <button id="reset-button" style="background-color: gray;">Reset</button>
+
+                <p id="counter-label">Counter: 0</p>
+            </div>
+        </div>
+
+        <div id="heading-references" class="rounded-outline vlist">
+            <h2># <a href="#heading-references">References</a></h2>
+
+            <ul id="reference-container" class="vlist">
+            </ul>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
