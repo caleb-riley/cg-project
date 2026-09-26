@@ -1,5 +1,5 @@
 const DESCRIPTION_PARAGRAPHS = [
-    "Linear programming is important because it provides a systematic way to optimize several variables under a set of constraints. This has several applications, including resource allocation in finance, where you can maximize profits while minimizing the use of valuable resources such as time, money, and materials. It is used by thousands of major corporations to streamline supply chains, cut transportation and fuel costs, and manage inventory. It replaces the guesswork within these domains, solving constrained systems in a fraction of the time it took prior to its discovery.",
+    "Linear programming provides a systematic way to optimize several variables under a set of constraints. This has several applications, including resource allocation in finance, where you can maximize profits while minimizing the use of valuable resources such as time, money, and materials. It is used by thousands of major corporations to streamline supply chains, cut transportation and fuel costs, and manage inventory. It replaces the guesswork within these domains, solving constrained systems in a fraction of the time it took prior to its discovery.",
     "This project is an interactive web-based pedagogical aid designed to support understanding of linear programming and how it relates to solving linear equations under certain constraints. The application will allow the user to input a list of linear equations, along with the constraints a potential solution must adhere to, and display a visual representation of the algorithm's execution, listing each step of the process and highlighting the changes in a geometric output. The application will parse the user's input into a more interpretable intermediate format and feed these inputs into the underlying algorithm of choice to solve it. To aid in understanding of the linear programming algorithm, pseudocode will be displayed on the page adjacent to the standard output, highlighting the current step that is being executed.",
 ];
 
@@ -12,7 +12,7 @@ const REFERENCE_ENTRIES = [
 ];
 
 const addDescriptionParagraphs = () => {
-    const descriptionContainer = document.getElementById("heading-description");
+    const descriptionContainer = document.getElementById("description-container");
 
     for (const paragraphText of DESCRIPTION_PARAGRAPHS) {
         const paragraphElement = document.createElement("p");
@@ -39,7 +39,35 @@ const addReferenceEntries = () => {
 
         referenceContainer.appendChild(listItem);
     }
-}
+};
+
+const bindInputEvents = () => {
+    const objectionFunctionInput = document.getElementById("objective-function");
+    const constraintContainer = document.getElementById("constraint-container");
+    const addConstraintButton = document.getElementById("add-constraint");
+    const solveSystemButton = document.getElementById("solve-system");
+
+    addConstraintButton.addEventListener("click", () => {
+        const constraintElement = document.createElement("input");
+        constraintElement.type = "text";
+        constraintElement.placeholder = "Enter constraint";
+
+        constraintContainer.appendChild(constraintElement);
+        constraintContainer.style.display = "flex";
+    });
+
+    solveSystemButton.addEventListener("click", () => {
+        console.log(`Objection function: ${objectionFunctionInput.value}`);
+
+        let index = 1;
+
+        for (const constraintEntry of constraintContainer.children) {
+            console.log(`Constraint ${index}: ${constraintEntry.value}`);
+
+            index += 1;
+        }
+    });
+};
 
 const bindCounterEvents = () => {
     const incrementButton = document.getElementById("increment-button");
@@ -51,26 +79,26 @@ const bindCounterEvents = () => {
         const count = Number.parseInt(localStorage.getItem("count") ?? "0");
 
         return Math.max(count, 0);
-    }
+    };
 
     const storeCount = (count) => {
         localStorage.setItem("count", count.toString());
-    }
+    };
 
     let currentCount = loadCount();
 
     const setLabelText = (count) => {
         counterLabel.innerText = `Count: ${count}`;
-    }
+    };
 
-    incrementButton.onclick = () => {
+    incrementButton.addEventListener("click", () => {
         currentCount += 1;
 
         setLabelText(currentCount);
         storeCount(currentCount);
-    };
+    });
 
-    decrementButton.onclick = () => {
+    decrementButton.addEventListener("click", () => {
         if (currentCount === 0)
             return;
 
@@ -78,22 +106,23 @@ const bindCounterEvents = () => {
 
         setLabelText(currentCount);
         storeCount(currentCount);
-    }
+    });
 
-    resetButton.onclick = () => {
+    resetButton.addEventListener("click", () => {
         currentCount = 0;
 
         setLabelText(currentCount);
         storeCount(currentCount);
-    }
+    });
 
     setLabelText(currentCount);
 };
 
-window.onload = () => {
+window.addEventListener("load", () => {
     addDescriptionParagraphs();
     addReferenceEntries();
     bindCounterEvents();
+    bindInputEvents();
 
     console.log("Page ready");
-};
+});

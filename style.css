@@ -1,5 +1,5 @@
 * {
-    font-family: 'JetBrains Mono';
+    font-family: 'JetBrains Mono', 'Arial';
     margin: 0px;
     padding: 0px;
     color: white;
@@ -14,7 +14,7 @@ html {
     padding: 10px;
     border-style: solid;
     border-color: lime;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .vlist {
@@ -41,12 +41,18 @@ ul {
     padding-left: 20px;
 }
 
-h2>a {
-    color: white;
-    text-decoration: none;
+input {
+    color: black;
 }
 
-button {
+button,
+input {
     padding: 5px;
     border-radius: 10px;
+    width: max-content;
+}
+
+button:hover,
+input:focus {
+    outline: 2px solid gold;
 }

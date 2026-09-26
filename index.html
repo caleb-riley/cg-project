@@ -17,41 +17,48 @@
         <div class="rounded-outline vlist" style="align-items: center;">
             <h1 style="text-align: center;">Linear Programming Visualizer</h1>
             <p style="text-align: center;">CSCI 716 - Computational Geometry</p>
+            <p>Caleb Riley (<a href="mailto:car1915@rit.edu">car1915@rit.edu</a>)</p>
         </div>
 
-        <div id="heading-author" class="rounded-outline vlist">
-            <h2># <a href="#heading-author">Author</a></h2>
+        <div class="rounded-outline vlist">
+            <h2># Description</h2>
 
-            <ul>
-                <li>
-                    <p>Caleb Riley (<a href="mailto:car1915@rit.edu">car1915@rit.edu</a>)</p>
-                </li>
-            </ul>
+            <div id="description-container" class="vlist"></div>
         </div>
 
-        <div id="heading-description" class="rounded-outline vlist">
-            <h2># <a href="#heading-description">Description</a></h2>
-        </div>
-
-        <div id="heading-interactive" class="rounded-outline vlist">
-            <h2># <a href="#heading-interactive">Interactive Aid</a></h2>
+        <div class="rounded-outline vlist">
+            <h2># Interactive Aid</h2>
 
             <p style="color: yellow;">Work in progress, play with this counter in the meantime (saves!)</p>
 
             <div class="hlist" style="align-items: center;">
-                <button id="increment-button" style="background-color: lime;">Increment</button>
-                <button id="decrement-button" style="background-color: red;">Decrement</button>
+                <button id="increment-button" style="background-color: green;">Increment</button>
+                <button id="decrement-button" style="background-color: maroon;">Decrement</button>
                 <button id="reset-button" style="background-color: gray;">Reset</button>
 
                 <p id="counter-label">Counter: 0</p>
             </div>
+
+            <p>Objective function:</p>
+
+            <input id="objective-function" type="text" placeholder="Enter objective">
+
+            <p>Constraints:</p>
+
+            <div class="vlist">
+                <div id="constraint-container" class="vlist" style="display: none;"></div>
+
+                <div class="hlist">
+                    <button id="add-constraint" style="background-color: green;">Add constraint</button>
+                    <button id="solve-system" style="background-color: blue;">Solve system</button>
+                </div>
+            </div>
         </div>
 
-        <div id="heading-references" class="rounded-outline vlist">
-            <h2># <a href="#heading-references">References</a></h2>
+        <div class="rounded-outline vlist">
+            <h2># References</h2>
 
-            <ul id="reference-container" class="vlist">
-            </ul>
+            <ul id="reference-container" class="vlist"></ul>
         </div>
     </div>
 
