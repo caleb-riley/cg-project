@@ -41,6 +41,114 @@ const addReferenceEntries = () => {
     }
 };
 
+const isAlphabetic = (str) => /^[A-Za-z]$/.test(str);
+
+const isDigit = (str) => /^\d$/.test(str);
+
+class Parser {
+    constructor(text) {
+        this.text = text;
+        this.position = 0;
+    }
+
+    currentChar() {
+        return this.text.charAt(this.position);
+    }
+
+    parseNumber() {
+        let isNegative = false;
+
+        if (this.currentChar() === "-") {
+            isNegative = true;
+
+            this.position += 1;
+        }
+
+        const start = this.position;
+
+        while (this.position < this.text.length && isDigit(this.currentChar()))
+            this.position += 1;
+
+        let value = Number.parseFloat(this.text.slice(start, this.position));
+
+        if (isNegative)
+            value *= -1;
+
+        return value;
+    }
+
+    parseVariable() {
+        const start = this.position;
+
+        while (this.position < this.text.length && isAlphabetic(this.currentChar()) || isDigit(this.currentChar()))
+            this.position += 1;
+
+        return this.text.slice(start, this.position);
+    }
+
+    parseTerm() {
+        let coefficient = 1.0;
+
+        if (this.currentChar() === "-" || isDigit(this.currentChar())) {
+            coefficient = this.parseNumber();
+
+            this.position += 1;
+        }
+
+        const variable = this.parseVariable();
+
+        return { coefficient, variable };
+    }
+
+    parseExpression() {
+        const terms = [];
+
+        terms.push(this.parseTerm());
+
+        while (this.position < this.text.length && (this.currentChar() === "+" || this.currentChar() === "-")) {
+            const isNegative = this.currentChar() === "-";
+
+            this.position += 1;
+
+            const term = this.parseTerm();
+
+            if (isNegative)
+                term.coefficient *= -1;
+
+            terms.push(term);
+        }
+
+        return { terms };
+    }
+
+    parseInequality() {
+        const expression = this.parseExpression();
+
+        this.position += 2;
+
+        const constant = this.parseNumber();
+
+        return { expression, constant };
+    }
+
+    static termToString(term) {
+        return `${term.coefficient} * ${term.variable}`;
+    }
+
+    static expressionToString(expression) {
+        let result = Parser.termToString(expression.terms[0]);
+
+        for (let index = 1; index < expression.terms.length; index++)
+            result += " + " + Parser.termToString(expression.terms[index]);
+
+        return result;
+    }
+
+    static inequalityToString(inequality) {
+        return `${Parser.expressionToString(inequality.expression)} <= ${inequality.constant}`;
+    }
+}
+
 const bindInputEvents = () => {
     const objectionFunctionInput = document.getElementById("objective-function");
     const constraintContainer = document.getElementById("constraint-container");
@@ -57,12 +165,22 @@ const bindInputEvents = () => {
     });
 
     solveSystemButton.addEventListener("click", () => {
+        const objectiveFunctionParser = new Parser(objectionFunctionInput.value);
+        const objectiveFunction = objectiveFunctionParser.parseExpression();
+
         console.log(`Objection function: ${objectionFunctionInput.value}`);
+        console.log(`${JSON.stringify(objectiveFunction)}`);
+        console.log(Parser.expressionToString(objectiveFunction));
 
         let index = 1;
 
         for (const constraintEntry of constraintContainer.children) {
+            const constraintParser = new Parser(constraintEntry.value);
+            const constraint = constraintParser.parseInequality();
+
             console.log(`Constraint ${index}: ${constraintEntry.value}`);
+            console.log(`${JSON.stringify(constraint)}`);
+            console.log(Parser.inequalityToString(constraint));
 
             index += 1;
         }
