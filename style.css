@@ -1,5 +1,5 @@
 * {
-    font-family: 'JetBrains Mono', 'Arial';
+    font-family: 'Arial';
     margin: 0px;
     padding: 0px;
     color: white;
@@ -52,7 +52,60 @@ input {
     width: max-content;
 }
 
+input,
+td,
+.code-line {
+    font-family: 'Consolas';
+}
+
 button:hover,
 input:focus {
     outline: 2px solid gold;
+}
+
+.code {
+    font-family: Consolas, monospace;
+    line-height: 1.5;
+    background: #121314;
+    padding: 16px 0;
+    border-radius: 10px;
+    overflow-x: auto;
+    counter-reset: line;
+    tab-size: 4;
+}
+
+.code-line {
+    display: block;
+    color: #9cdcfe;
+    padding: 0 16px 0 0;
+    border-left: 3px solid transparent;
+    transition: background 0.2s;
+}
+
+.code-line::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 3em;
+    margin-right: 10px;
+    text-align: right;
+    color: #858889;
+    user-select: none;
+}
+
+.code-line.active {
+    background: #242526;
+    border-left-color: #89b4fa;
+}
+
+table {
+    border-collapse: collapse;
+    width: max-content;
+}
+
+td {
+    padding: 5px;
+    border: 1px solid white;
+    text-align: center;
+    width: 10px;
 }

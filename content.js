@@ -1,0 +1,90 @@
+const DESCRIPTION_PARAGRAPHS = [
+    "Linear programming provides a systematic way to optimize several variables under a set of constraints. This has several applications, including resource allocation in finance, where you can maximize profits while minimizing the use of valuable resources such as time, money, and materials. It is used by thousands of major corporations to streamline supply chains, cut transportation and fuel costs, and manage inventory. It replaces the guesswork within these domains, solving constrained systems in a fraction of the time it took prior to its discovery.",
+    "This project is an interactive web-based pedagogical aid designed to support understanding of linear programming and how it relates to solving linear equations under certain constraints. The application will allow the user to input a list of linear equations, along with the constraints a potential solution must adhere to, and display a visual representation of the algorithm's execution, listing each step of the process and highlighting the changes in a geometric output. The application will parse the user's input into a more interpretable intermediate format and feed these inputs into the underlying algorithm of choice to solve it. To aid in understanding of the linear programming algorithm, pseudocode will be displayed on the page adjacent to the standard output, highlighting the current step that is being executed.",
+];
+
+const REFERENCE_ENTRIES = [
+    { title: "Linear Programming Wikipedia Page", link: "https://en.wikipedia.org/wiki/Linear_programming" },
+    { title: "MIT Linear Programming Lecture Notes", link: "https://math.mit.edu/~goemans/18310S15/lpnotes310.pdf" },
+    { title: "Simplex Algorithm Wikipedia Page", link: "https://en.wikipedia.org/wiki/Simplex_algorithm" },
+    { title: "Cambridge Simplex Algorithm Lecture Notes", link: "https://www.cl.cam.ac.uk/teaching/2324/RandAlgthm/1up/lec7_simplex.pdf" },
+    { title: "Purdue Simplex Algorithm Lecture Notes", link: "https://www.pnw.edu/wp-content/uploads/2020/03/attendance5-1.pdf" },
+];
+
+const PSEUDOCODE = `SIMPLEX(objective, constraints):
+    build tableau:
+        one row per constraint: coefficients | slack identity column | constant
+        objective row: negated objective coefficients | zeros | 0
+    basis ← the slack variables (one per constraint row)
+
+    loop:
+        choose entering column: most negative entry in the objective row
+        if none is negative → STOP, current solution is optimal
+
+        ratio test: for each constraint row with a positive entry in the entering column,
+            ratio ← row constant / entry
+        if no row qualifies → STOP, problem is unbounded
+        choose leaving row: smallest ratio
+
+        pivot element ← entry at (leaving row, entering column)
+        divide the leaving row by the pivot element
+        for every other row, including the objective row:
+            subtract (that row's entry in the entering column) * leaving row
+            → entering column becomes 0 everywhere except 1 in the leaving row
+        basis[leaving row] ← entering variable
+
+    read solution:
+        each basic variable = constant in its row
+        every non-basic variable = 0
+        optimal value = constant in the objective row`;
+
+const addDescriptionParagraphs = () => {
+    const descriptionContainer = document.getElementById("description-container");
+
+    for (const paragraphText of DESCRIPTION_PARAGRAPHS) {
+        const paragraphElement = document.createElement("p");
+
+        paragraphElement.innerText = paragraphText;
+        paragraphElement.className = "class=\"description-paragraph\"";
+        paragraphElement.style.textAlign = "justify";
+
+        descriptionContainer.appendChild(paragraphElement);
+    }
+};
+
+const addReferenceEntries = () => {
+    const referenceContainer = document.getElementById("reference-container");
+
+    for (const referenceEntry of REFERENCE_ENTRIES) {
+        const linkElement = document.createElement("a");
+        linkElement.setAttribute("href", referenceEntry.link);
+        linkElement.setAttribute("target", "_blank");
+        linkElement.innerText = referenceEntry.title;
+
+        const listItem = document.createElement("li");
+        listItem.appendChild(linkElement);
+
+        referenceContainer.appendChild(listItem);
+    }
+};
+
+const createPseudocodeDisplay = () => {
+    const pseudocodeContainer = document.getElementById("pseudocode-container");
+    const lines = PSEUDOCODE.split("\n");
+
+    for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+        const lineElement = document.createElement("span");
+
+        lineElement.className = "code-line";
+        lineElement.id = `line-${lineIndex + 1}`;
+        lineElement.innerHTML = lines[lineIndex] || " ";
+
+        pseudocodeContainer.appendChild(lineElement);
+    }
+};
+
+export const setupContent = () => {
+    addDescriptionParagraphs();
+    addReferenceEntries();
+    createPseudocodeDisplay();
+};
